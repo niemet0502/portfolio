@@ -1,0 +1,20 @@
+html {
+  --primaryBackgroundColor: white;
+  --primaryTextColor: black;
+}
+
+
+.TextCard {
+  background: var(--primaryBackgroundColor);
+  color: var(--primaryTextColor);
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --primaryBackgroundColor: black;
+    --primaryTextColor: white;
+  }
+}
