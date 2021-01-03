@@ -3,6 +3,10 @@ html {
   --primaryTextColor: black;
 }
 
+html.dark {
+  --primaryBackgroundColor: black;
+  --primaryTextColor: white;
+}
 
 .TextCard {
   background: var(--primaryBackgroundColor);
@@ -12,9 +16,3 @@ html {
   border-radius: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    --primaryBackgroundColor: black;
-    --primaryTextColor: white;
-  }
-}

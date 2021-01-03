@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Loader from "./component/Loader/Loader"
 import styled from "styled-components"
+import {DarkToggle} from "./component/ButtonToggle/DarkToggle"
+import "react-toggle/style.css";
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -16,6 +18,7 @@ function App() {
   return (
     <>
         <div className="App">
+          <DarkToggle />
           <div className="TextCard">
             Marius
           </div>
