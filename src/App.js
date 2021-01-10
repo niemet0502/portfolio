@@ -5,6 +5,7 @@ import Loader from "./component/Loader/Loader"
 import styled from "styled-components"
 import {DarkToggle} from "./component/ButtonToggle/DarkToggle"
 import "react-toggle/style.css";
+import $ from 'jquery';
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -14,64 +15,51 @@ function App() {
       setLoading(false)
     }, 5000)
         
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var x = window.innerWidth/2;
-    var y = window.innerHeight/2;
-    var ballX = x;
-    var ballY = y;
-    resize();
+    var mouseX=window.innerWidth/2, mouseY=window.innerHeight/2;
 
-    function drawBall() {
-      ctx.beginPath();
-      // instead of updating the ball position to the mouse position we will lerp 10% of the distance between the balls current position and the mouse position.
-      ballX += (x - ballX)*0.1;
-      ballY += (y - ballY)*0.1;
-      ctx.arc(ballX, ballY, 40, 0, 2*Math.PI);
-      ctx.fillStyle = '#9e356a';
-      ctx.fill();
+    var circle = {
+      el:$('#circle'),
+      x:window.innerWidth/2, y:window.innerHeight/2, w:100, h:100,
+      update:function(){
+        var l = this.x-this.w/2;
+        var t = this.y-this.h/2;
+        this.el.css({
+          'transform':'translate3d('+l+'px, '+t+'px, 0)'
+        });
+      }
     }
-
-    function loop() {
-      ctx.clearRect(0, 0, width, height);
-      drawBall();
-      requestAnimationFrame(loop);
+    
+    $(window).mousemove (function(e){
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    })
+    
+    setInterval (move,1000/60)
+    
+    function move(){
+      //circle.x += (mouseX - circle.x) * 0.1; // old style
+      //circle.y += (mouseY - circle.y) * 0.1; // old style
+      
+      circle.x = lerp (circle.x, mouseX, 0.1);
+      circle.y = lerp (circle.y, mouseY, 0.1);
+      circle.update() 
     }
-
-    loop();
-
-    function touch(e) {
-      x = e.originalEvent.touches[0].pageX;
-      y = e.originalEvent.touches[0].pageY;
+    
+    function lerp (start, end, amt){
+      return (1-amt)*start+amt*end
     }
-
-    function mousemove(e) {
-      x = e.pageX;
-      y = e.pageY;
-    }
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resize);
-    window.addEventListener('touchstart', touch);
-    window.addEventListener('touchmove', touch);
-    window.addEventListener('mousemove', mousemove);
   }, [])
   return (
     <>
-      <div className="App">
-      
-        <canvas id="canvas"></canvas>
+      <div className="App TextCard">
         <DarkToggle />
-        <div className="TextCard">
+        <h4>move the mouse</h4>
+        <div id="circle"></div>
+        <div style={{height: "1000px", width: "100%"}}>
           Marius
+
+          <button style={{background: "red"}} onClick={() => console.log('marius')}>Click Me</button>
         </div>
-        <h1>Follow the mouse - with lerp</h1>
       </div>
     </>
   );
