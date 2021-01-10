@@ -1,18 +1,39 @@
 html {
-  --primaryBackgroundColor: white;
-  --primaryTextColor: black;
+  --primaryBackgroundColor: white !important;
+  --primaryTextColor: black !important;
 }
 
 html.dark {
-  --primaryBackgroundColor: black;
-  --primaryTextColor: white;
+  --primaryBackgroundColor: black !important;
+  --primaryTextColor: white !important;
 }
 
-.TextCard {
+.App {
   background: var(--primaryBackgroundColor);
   color: var(--primaryTextColor);
   margin: 0;
   padding: 10px 20px;
-  border-radius: 20px;
 }
 
+@media (prefers-color-scheme: dark) {
+  html {
+    --primaryBackgroundColor: black;
+    --primaryTextColor: white;
+  }
+}
+
+
+#circle{
+  width:25px;
+  height:25px;
+  background:#00cf8a;
+  position:static;
+  border-radius:50%;
+  z-index: -5;
+}
+
+h4{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+}
