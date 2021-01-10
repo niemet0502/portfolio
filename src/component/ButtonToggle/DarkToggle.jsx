@@ -16,11 +16,7 @@ export const DarkToggle = () => {
     }
     
   );
-    /*<>
-      <button onClick={() => setIsDark(true)}>Dark</button>
-      <button onClick={() => setIsDark(false)}>Light</button>
-    </> */
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(systemPrefersDark);
 
      useEffect(() => {
        console.log(isDark)
